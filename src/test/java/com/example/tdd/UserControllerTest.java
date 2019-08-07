@@ -24,12 +24,18 @@ public class UserControllerTest {
 
     @Test
     public void test() {
+        UserResponse expected = new UserResponse();
+        expected.setId(1);
+        expected.setName("somkiat");
+        expected.setEmail("somkiat.p@gmail.com");
+        
         UserResponse response 
         = restTemplate.getForObject("/user/1", UserResponse.class);
         
         assertEquals(1, response.getId());
         assertEquals("somkiat", response.getName());
         assertEquals("somkiat.p@gmail.com", response.getEmail());
+        assertEquals(expected,  response);
     }
 
 }

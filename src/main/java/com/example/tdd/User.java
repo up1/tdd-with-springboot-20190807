@@ -1,7 +1,15 @@
 package com.example.tdd;
 
-public class UserResponse extends Object {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class User {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String email;
@@ -41,7 +49,7 @@ public class UserResponse extends Object {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserResponse other = (UserResponse) obj;
+        User other = (User) obj;
         if (email == null) {
             if (other.email != null)
                 return false;
@@ -56,11 +64,7 @@ public class UserResponse extends Object {
             return false;
         return true;
     }
-    @Override
-    public String toString() {
-        return "UserResponse [id=" + id + ", name=" + name + ", email=" + email + "]";
-    }
     
     
-    
+
 }
