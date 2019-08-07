@@ -18,19 +18,35 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Optional;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerMvcTest {
 
     @Autowired
     private MockMvc mvc;
+    
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     public void test02() throws Exception {
+        // Stub
+        User somkiat = new User();
+        somkiat.setId(1);
+        somkiat.setName("somkiat");
+        somkiat.setEmail("somkiat.p@gmail.com");
+        
+        given(this.userRepository.findById(1))
+        .willReturn(Optional.of(somkiat));
+        
+        // Act
         MvcResult result = this.mvc.perform(get("/user/1")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().isOk()).andReturn();
         
+        // Assert
         String resultJson = result.getResponse().getContentAsString();
         ObjectMapper mapper = new ObjectMapper();
         UserResponse response = mapper.readValue(resultJson, UserResponse.class);
