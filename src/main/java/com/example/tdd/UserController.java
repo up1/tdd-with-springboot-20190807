@@ -11,6 +11,9 @@ public class UserController {
     public UserResponse getUser(@PathVariable int id) {
         // TODO
         UserResponse userResponse = new UserResponse();
+        userResponse.setId(1);
+        userResponse.setName("somkiat");
+        userResponse.setEmail("somkiat.p@gmail.com");
         return userResponse;
     }
 
